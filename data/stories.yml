@@ -1,0 +1,51 @@
+version: "3.1"
+
+stories:
+- story: greet and introduction
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: introduce_bimpe
+  - action: utter_introduce_bimpe
+
+- story: stress relief
+  steps:
+  - intent: stress_relief
+  - action: utter_stress_relief
+
+- story: feeling down
+  steps:
+  - intent: feeling_down
+  - action: utter_feeling_down
+
+- story: burnout support
+  steps:
+  - intent: burnout
+  - action: utter_burnout
+
+- story: self reflection
+  steps:
+  - intent: recall_memory
+  - action: utter_self_reflection
+
+- story: goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: interpret unknown emotion
+  steps:
+    - intent: feeling_down
+    - action: action_interpret_emotion
+
+rules:
+- rule: handle confusing input
+  steps:
+    - intent: nlu_fallback
+    - action: action_empathic_recovery
+
+- story: grounding with role
+  steps:
+    - intent: emotion_sadness
+    - action: utter_role_conditioning
+    - action: utter_emotion_sadness

@@ -1,0 +1,89 @@
+version: "3.1"
+
+intents:
+  - greet
+  - introduce_bimpe
+  - stress_relief
+  - feeling_down
+  - goodbye
+  - burnout
+  - recall_memory
+  - emotion_sadness
+  - emotion_anxiety
+  - emotion_burnout
+
+responses:
+  utter_greet:
+    - text: |
+        Hey there, I’m Bimpe — your calm in the chaos. 💭
+        I’m here to help you unwind, reflect, and breathe again.
+        How are you holding up today?
+
+  utter_introduce_bimpe:
+    - text: |
+        My name’s Bimpe, your HealHubCenter companion.
+        I was created to make mental wellness less lonely — one gentle chat at a time.
+        I can help you breathe, refocus, or just talk things through.
+
+  utter_stress_relief:
+    - text: |
+        Let’s try something simple together.
+        Close your eyes for a few seconds.
+        Inhale slowly… hold… and exhale.
+        Now tell me — what’s been weighing on your mind the most lately?
+
+  utter_feeling_down:
+    - text: |
+        That’s okay. You don’t need to fix everything today.
+        Sometimes just naming how you feel is the first brave step.
+        Would you like me to guide you through a short calm-down session?
+
+  utter_burnout:
+    - text: |
+        You’ve been running on empty, haven’t you?
+        It’s okay to pause. You’re not weak — you’re just human.
+        Would you like me to help you reset your thoughts right now?
+
+  utter_self_reflection:
+    - text: |
+        That’s okay — you don’t have to have the answers right now.
+        Let’s unpack it together. What’s been weighing on your mind lately?
+
+  utter_goodbye:
+    - text: |
+        I’ll be right here when you need me again.
+        Remember — you’re doing better than you think.
+        Take care of your mind, always.
+
+  utter_emotion_sadness:
+    - text: |
+        I can feel how heavy that sounds — losing something or someone we love can shake our core.
+        You don’t have to carry that alone.
+        Would you like to talk about what they meant to you, or do something grounding together?
+
+  utter_emotion_anxiety:
+    - text: |
+        It sounds like your mind’s been racing, and your body’s trying to keep up.
+        Let’s slow things down for a second — inhale… hold… and exhale.
+        You’re safe in this moment. Want me to guide you through a calm-breath session?
+
+  utter_emotion_burnout:
+    - text: |
+        You’ve been giving so much of yourself for too long.
+        Burnout isn’t weakness — it’s your body asking for rest.
+        Let’s talk about one thing you can release tonight.
+
+actions:
+  - action_remember_user_feeling
+  - action_interpret_emotion
+
+slots:
+  last_feeling:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+    
+utter_role_conditioning:
+  - text: |
+      Remember — I’m not here to diagnose you. I’m here as your calm companion, like a friend who listens without judgment. You’re safe here.
