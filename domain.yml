@@ -87,3 +87,23 @@ slots:
 utter_role_conditioning:
   - text: |
       Remember — I’m not here to diagnose you. I’m here as your calm companion, like a friend who listens without judgment. You’re safe here.
+
+slots:
+  conversation_summary:
+    type: text
+    influence_conversation: false
+    initial_value: ""
+  last_user_message:
+    type: text
+    influence_conversation: false
+    initial_value: ""
+
+actions:
+  - action_update_last_user_message
+  - action_summarize_conversation
+
+responses:
+  utter_ack_with_memory:
+    - text: |
+        {conversation_summary}
+        I’m with you. How would you like us to move forward from here?

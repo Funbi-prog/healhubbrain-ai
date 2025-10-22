@@ -6,3 +6,28 @@ rules:
   - intent: goodbye
   - action: utter_goodbye
 
+rules:
+
+- rule: Cache last user message after each input
+  steps:
+    - intent: nlu_fallback
+    - action: action_update_last_user_message
+
+- rule: Cache last user message (general)
+  steps:
+    - action: action_listen
+    - intent: inform
+    - action: action_update_last_user_message
+
+# You might not have 'inform' intent; duplicate for common intents:
+- rule: Cache last user message (greet)
+  steps:
+    - action: action_listen
+    - intent: greet
+    - action: action_update_last_user_message
+
+# Periodic summarize trigger (example using a form end or a specific intent)
+- rule: Summarize periodically
+  steps:
+    - intent: thank_you
+    - action: action_summarize_conversation
