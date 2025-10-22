@@ -73,9 +73,15 @@ responses:
         Burnout isn’t weakness — it’s your body asking for rest.
         Let’s talk about one thing you can release tonight.
 
-actions:
-  - action_remember_user_feeling
-  - action_interpret_emotion
+  utter_role_conditioning:
+    - text: |
+        Remember — I’m not here to diagnose you. I’m here as your calm companion, like a gentle guide.
+        Together we’ll walk through your thoughts and untangle the noise.
+
+  utter_ack_with_memory:
+    - text: |
+        {conversation_summary}
+        I’m with you. How would you like us to move forward from here?
 
 slots:
   last_feeling:
@@ -83,27 +89,24 @@ slots:
     influence_conversation: true
     mappings:
       - type: from_text
-    
-utter_role_conditioning:
-  - text: |
-      Remember — I’m not here to diagnose you. I’m here as your calm companion, like a friend who listens without judgment. You’re safe here.
 
-slots:
   conversation_summary:
     type: text
     influence_conversation: false
     initial_value: ""
+    mappings: []
+
   last_user_message:
     type: text
     influence_conversation: false
     initial_value: ""
+    mappings: []
 
 actions:
+  - action_remember_user_feeling
+  - action_interpret_emotion
   - action_update_last_user_message
   - action_summarize_conversation
 
-responses:
-  utter_ack_with_memory:
-    - text: |
-        {conversation_summary}
-        I’m with you. How would you like us to move forward from here?
+actions:
+  - action_answer_from_kb

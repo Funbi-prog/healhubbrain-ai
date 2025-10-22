@@ -123,3 +123,29 @@ class ActionSummarizeConversation(Action):
 
         new_summary = _basic_summarize(stitched, max_chars=800)
         return [SlotSet("conversation_summary", new_summary)]
+# actions/actions.py
+from typing import Any, Text, Dict, List
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+
+from .retriever import BimpeKB
+from .compose import compose_answer
+
+KB = BimpeKB(kb_path="knowledge/bimpe_knowledge_base.json")
+
+class ActionAnswerFromKB(Action):
+    def name(self) -> Text:
+        return "action_answer_from_kb"
+
+    def run(self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        user_msg = tracker.latest_message.get("text", "")
+        hits = KB.search(user_msg, k=4)
+        if not hits:
+            dispatcher.utter_message(text="I couldn’t find this in our playbook yet, but I can still help. Want me to pull external resources?")
+            return []
+        reply = compose_answer(user_msg, hits)
+        dispatcher.utter_message(text=reply)
+        return []
