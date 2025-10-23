@@ -7,8 +7,12 @@ services:
     buildCommand: |
       python3 -m pip install --upgrade pip setuptools wheel packaging
       pip install -r requirements.txt
+      echo "Training model during build..."
       rasa train
-    startCommand: rasa run --enable-api --cors "*" --model models/20251023-171911-hot-arena.tar.gz --port 5005 --debug
+      echo "Build phase complete."
+    startCommand: |
+      echo "Starting Rasa and loading model..."
+      rasa run --enable-api --cors "*" --model $(ls -t models | head -n 1 | xargs -I {} echo models/{}) --port 5005 --debug
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.13
