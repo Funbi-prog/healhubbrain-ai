@@ -1,4 +1,9 @@
---upgrade pip
+# Upgrade core build tools first
+pip>=25.2
+setuptools>=75.1.0
+wheel>=0.44.0
+
+# Then install Rasa and dependencies
 rasa==3.6.20
 rasa-sdk==3.6.2
 requests
@@ -6,5 +11,3 @@ numpy
 pandas
 flask
 gunicorn
-setuptools>=65.5.1
-wheel
