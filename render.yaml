@@ -7,7 +7,10 @@ services:
     buildCommand: |
       python3 -m pip install --upgrade pip setuptools wheel packaging
       pip install -r requirements.txt
-    startCommand: rasa run --enable-api --cors "*" --debug
+      rasa train
+    startCommand: rasa run --enable-api --cors "*" --model models/20251023-171911-hot-arena.tar.gz --port 5005 --debug
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.13
+      - key: PORT
+        value: 5005
