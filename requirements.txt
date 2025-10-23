@@ -1,4 +1,7 @@
 rasa==3.6.18
 rasa-sdk==3.6.2
-requests
-PyYAML
+requests==2.31.0
+PyYAML==6.0.1
+SQLAlchemy<2.0
+tensorflow-cpu==2.12.0
+
