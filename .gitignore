@@ -1,9 +1,19 @@
-
+# Ignore Python virtual environment
 venv/
-models/
+
+# Ignore compiled files and cache
 __pycache__/
-*.tar.gz
+*.pyc
+*.pyo
+
+# Ignore logs and databases
 *.log
 *.db
 *.sqlite
+
+# Ignore macOS system files
 .DS_Store
+
+# Ignore everything in models except trained Rasa models
+models/*
+!models/*.tar.gz
