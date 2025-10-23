@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: healhub-core
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt
+      rasa train
+    startCommand: rasa run --enable-api --cors "*" --port 5005
+    plan: free
+    envVars:
+      - key: PORT
+        value: 5005
+
+  - type: web
+    name: healhub-actions
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt
