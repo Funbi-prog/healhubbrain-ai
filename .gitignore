@@ -1,8 +1,9 @@
-.rasa/
-models/
-*.tar.gz
-__pycache__/
-*.pyc
 
 venv/
-healhubbrain-ai/
+models/
+__pycache__/
+*.tar.gz
+*.log
+*.db
+*.sqlite
+.DS_Store
