@@ -1,3 +1,4 @@
+--upgrade pip
 rasa==3.6.20
 rasa-sdk==3.6.2
 requests
