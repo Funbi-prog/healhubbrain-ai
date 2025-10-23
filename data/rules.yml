@@ -7,28 +7,39 @@ rules:
       - action: utter_goodbye
 
   - rule: Cache last user message after each input
+    condition:
+      - active_loop: null
     steps:
       - intent: nlu_fallback
       - action: action_update_last_user_message
 
   - rule: Cache last user message (general)
+    condition:
+      - active_loop: null
     steps:
       - action: action_listen
       - intent: inform
       - action: action_update_last_user_message
 
   - rule: Cache last user message (greet)
+    condition:
+      - active_loop: null
     steps:
-      - action: action_listen
       - intent: greet
-      - action: action_update_last_user_message
+      - action: utter_greet
+      # - action: action_update_last_user_message  # commented out to remove conflict
 
   - rule: Summarize periodically
+    condition:
+      - active_loop: null
     steps:
       - intent: thank_you
-      - action: action_summarize_conversation
+      - action: utter_ack_with_memory
+      # - action: action_summarize_conversation  # commented out to remove conflict
 
-  - rule: Always try KB after user message (fallback-ish)
+  - rule: Try knowledge base when user asks a general question
+    condition:
+      - active_loop: null
     steps:
-      - action: action_listen
+      - intent: recall_memory
       - action: action_answer_from_kb

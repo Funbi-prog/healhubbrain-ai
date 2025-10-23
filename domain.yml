@@ -11,6 +11,9 @@ intents:
   - emotion_sadness
   - emotion_anxiety
   - emotion_burnout
+  - inform
+  - thank_you
+
 
 responses:
   utter_greet:
@@ -107,6 +110,4 @@ actions:
   - action_interpret_emotion
   - action_update_last_user_message
   - action_summarize_conversation
-
-actions:
   - action_answer_from_kb

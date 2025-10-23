@@ -1,51 +1,52 @@
 version: "3.1"
 
 stories:
-- story: greet and introduction
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: introduce_bimpe
-  - action: utter_introduce_bimpe
+  - story: greet path
+    steps:
+      - intent: greet
+      - action: utter_greet
 
-- story: stress relief
-  steps:
-  - intent: stress_relief
-  - action: utter_stress_relief
+  - story: introduce bimpe
+    steps:
+      - intent: introduce_bimpe
+      - action: utter_introduce_bimpe
 
-- story: feeling down
-  steps:
-  - intent: feeling_down
-  - action: utter_feeling_down
+  - story: stress relief
+    steps:
+      - intent: stress_relief
+      - action: utter_stress_relief
 
-- story: burnout support
-  steps:
-  - intent: burnout
-  - action: utter_burnout
+  - story: feeling down
+    steps:
+      - intent: feeling_down
+      - action: utter_feeling_down
 
-- story: self reflection
-  steps:
-  - intent: recall_memory
-  - action: utter_self_reflection
+  - story: burnout recovery
+    steps:
+      - intent: burnout
+      - action: utter_burnout
 
-- story: goodbye
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
+  - story: emotion sadness
+    steps:
+      - intent: emotion_sadness
+      - action: utter_emotion_sadness
 
-- story: interpret unknown emotion
-  steps:
-    - intent: feeling_down
-    - action: action_interpret_emotion
+  - story: emotion anxiety
+    steps:
+      - intent: emotion_anxiety
+      - action: utter_emotion_anxiety
 
-rules:
-- rule: handle confusing input
-  steps:
-    - intent: nlu_fallback
-    - action: action_empathic_recovery
+  - story: emotion burnout
+    steps:
+      - intent: emotion_burnout
+      - action: utter_emotion_burnout
 
-- story: grounding with role
-  steps:
-    - intent: emotion_sadness
-    - action: utter_role_conditioning
-    - action: utter_emotion_sadness
+  - story: user says goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - story: user thanks bimpe
+    steps:
+      - intent: thank_you
+      - action: utter_ack_with_memory
