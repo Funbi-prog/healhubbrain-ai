@@ -2,7 +2,7 @@
   "metadata": {
     "version": "1.0",
     "source": "HealHubCenter",
-    "description": "Knowledge base for Bimpe, the AI wellness companion of HealHubCenter."
+    "description": "Unified knowledge base for Bimpe, the AI wellness companion of HealHubCenter."
   },
   "knowledge": [
     {
@@ -34,6 +34,16 @@
       "category": "mental_health",
       "question_patterns": ["i feel depressed", "i’m anxious", "i’m tired", "i’m burned out", "i feel lost"],
       "answer": "It’s okay to feel that way. Let’s take a moment to breathe. Healing starts with acknowledging how you feel. I can guide you through a calm exercise, share coping techniques, or connect you to a roundtable session for support."
+    },
+    {
+      "category": "general_info",
+      "entries": {
+        "siri": "Siri is Apple's virtual assistant that uses voice recognition and AI to answer questions and perform tasks on Apple devices.",
+        "gpt": "GPT stands for Generative Pre-trained Transformer — a large language model developed by OpenAI, designed to understand and generate human-like text.",
+        "rasa": "Rasa is an open-source conversational AI framework that helps developers build chatbots with natural language understanding and dialogue management.",
+        "mental wellness": "Mental wellness is the state of emotional, psychological, and social well-being — it affects how we think, feel, and act.",
+        "self care": "Self-care means taking deliberate actions to protect your physical, mental, and emotional health — things like rest, meditation, journaling, and boundary-setting."
+      }
     }
   ]
 }

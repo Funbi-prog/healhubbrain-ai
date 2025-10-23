@@ -32,11 +32,12 @@ pipeline:
 # ⚙️ Core Policies (Behavior + Context Management)
 policies:
   - name: MemoizationPolicy
+    max_history: 10              # remembers up to 10 turns (for emotional thread)
   - name: RulePolicy
   - name: UnexpecTEDIntentPolicy
-    max_history: 6        # Keeps a small rolling window
+    max_history: 8               # slightly extended to hold context better
     epochs: 80
   - name: TEDPolicy
-    max_history: 6        # Controls short-term memory depth
+    max_history: 10              # upgraded short-term memory depth
     epochs: 80
     constrain_similarities: true

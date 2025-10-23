@@ -4,6 +4,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 import json
 import os
+import re
 
 # 🧠 Emotion Interpretation
 class ActionInterpretEmotion(Action):
@@ -28,6 +29,7 @@ class ActionInterpretEmotion(Action):
         dispatcher.utter_message(text="Tell me more about what’s been happening lately. I’m listening.")
         return []
 
+
 # 💬 Empathic Recovery
 class ActionEmpathicRecovery(Action):
     def name(self):
@@ -36,9 +38,10 @@ class ActionEmpathicRecovery(Action):
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict):
         user_text = tracker.latest_message.get("text", "").lower()
         dispatcher.utter_message(
-            text=f"It sounds like there’s a lot on your mind. You’re not alone in this — let’s take it one step at a time."
+            text="It sounds like there’s a lot on your mind. You’re not alone in this — let’s take it one step at a time."
         )
         return []
+
 
 # 🪞 Reflection Layer
 class ActionReflectBeforeResponse(Action):
@@ -60,7 +63,8 @@ class ActionReflectBeforeResponse(Action):
         dispatcher.utter_message(text="I hear you. Tell me more — what’s making you feel this way right now?")
         return []
 
-# 📚 Knowledge Base Response Action
+
+# 📚 Knowledge Base Response Action (Hybrid Knowledge System)
 class ActionAnswerFromKB(Action):
     def name(self):
         return "action_answer_from_kb"
@@ -75,19 +79,44 @@ class ActionAnswerFromKB(Action):
 
         try:
             with open(kb_path, "r", encoding="utf-8") as kb_file:
-                knowledge_data = json.load(kb_file)
+                data = json.load(kb_file)
         except Exception as e:
             dispatcher.utter_message(text=f"Error reading knowledge base: {e}")
             return []
 
-        # Simple keyword match
-        for topic, content in knowledge_data.items():
-            if topic.lower() in user_query:
-                dispatcher.utter_message(text=content)
-                return []
+        # If the file contains both metadata/knowledge and general facts
+        knowledge_entries = []
+        general_facts = {}
 
-        dispatcher.utter_message(text="I couldn’t find that yet — but I’m still learning. Could you rephrase it?")
+        # Handle both possible JSON structures
+        if "knowledge" in data:
+            knowledge_entries = data.get("knowledge", [])
+        else:
+            # fallback if it's a flat dict (like siri/gpt)
+            general_facts = data
+
+        # 🔹 Step 1: Match structured knowledge
+        for entry in knowledge_entries:
+            for pattern in entry.get("question_patterns", []):
+                if re.search(pattern, user_query):
+                    dispatcher.utter_message(text=entry["answer"])
+                    return []
+
+        # 🔹 Step 2: Match general facts
+        if "siri" in user_query:
+            dispatcher.utter_message(text=general_facts.get("siri", "Siri is Apple's virtual assistant."))
+            return []
+        if "gpt" in user_query:
+            dispatcher.utter_message(text=general_facts.get("gpt", "GPT is OpenAI's language model."))
+            return []
+        if "rasa" in user_query:
+            dispatcher.utter_message(text=general_facts.get("rasa", "Rasa is an open-source chatbot framework."))
+            return []
+
+        # 🔹 Step 3: Graceful fallback
+        dispatcher.utter_message(text="I don’t have that information yet, but I’ll learn it soon.")
         return []
+
 
 # 🧩 Update Last Message Slot
 class ActionUpdateLastUserMessage(Action):
